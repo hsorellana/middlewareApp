@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Employee;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use App\Http\Requests\CreateEmployee;
+use App\Http\Requests\UpdateEmployee;
 
 class EmployeeController extends Controller
 {
     public function __construct()
     {
-        $this->client = new \GuzzleHttp\Client([
+        /*$this->client = new \GuzzleHttp\Client([
             'base_uri' => '127.0.0.1:9000'
-        ]);
+        ]);*/
     }
 
     /**
@@ -41,7 +43,7 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateEmployee $request)
     {
         $emp = new Employee();
         $emp->name = $request->name;
@@ -84,14 +86,14 @@ class EmployeeController extends Controller
      * @param  \App\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee)
+    public function update(UpdateEmployee $request, Employee $employee)
     {
         $emp = Employee::find($employee->id);
         $emp->name = $request->name;
         $emp->rut = $request->rut;
         $emp->type = $request->type;
         $emp->save();
-
+/**
         $rutSplit = explode('-', $emp->rut);
         $type = ($emp->type == 'jefe') ? 1 : 2;
 
@@ -104,7 +106,12 @@ class EmployeeController extends Controller
                 'type_id' => $type
             ]
         ]);
-
+*/
         return redirect()->route('employee.create');
+    }
+
+    public function show(Employee $employee){
+        $emp = Employee::find($employee->id);
+        return $emp;
     }
 }
