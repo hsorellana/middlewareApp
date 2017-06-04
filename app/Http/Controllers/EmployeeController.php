@@ -12,9 +12,9 @@ class EmployeeController extends Controller
 {
     public function __construct()
     {
-        /*$this->client = new \GuzzleHttp\Client([
+        $this->client = new \GuzzleHttp\Client([
             'base_uri' => '127.0.0.1:9000'
-        ]);*/
+        ]);
     }
 
     /**
@@ -93,7 +93,7 @@ class EmployeeController extends Controller
         $emp->rut = $request->rut;
         $emp->type = $request->type;
         $emp->save();
-/**
+
         $rutSplit = explode('-', $emp->rut);
         $type = ($emp->type == 'jefe') ? 1 : 2;
 
@@ -106,7 +106,7 @@ class EmployeeController extends Controller
                 'type_id' => $type
             ]
         ]);
-*/
+
         return redirect()->route('employee.create');
     }
 
